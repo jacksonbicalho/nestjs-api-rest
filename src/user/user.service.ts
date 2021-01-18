@@ -1,9 +1,9 @@
-import { Injectable, Type } from '@nestjs/common';
+import { BadRequestException, Injectable, Type } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { User }  from './user.entity';
 import { CreateUserDto } from './user.dto';
-import { Valid } from '../decorators'
+import { Valid, FindOneParams } from '../decorators'
 
 @Injectable()
 export class UserService {
@@ -27,8 +27,9 @@ export class UserService {
     return await this.userRepo.findOne({"username": username})
   }
 
+  @Valid(FindOneParams)
   async findOne(id: number) {
-    return this.userRepo.findOne({ id });
+    return await this.userRepo.findOne( { id } );
   }
 
   async update(id: number, updateUserDto: CreateUserDto) {
