@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { User }  from './user.entity';
 import { CreateUserDto } from './user.dto';
-import { default as Valid } from '../decorator/valida'
+import { Valid } from '../decorators'
 
 @Injectable()
 export class UserService {
@@ -21,6 +21,10 @@ export class UserService {
 
   async findAll(): Promise<User[]> {
     return await this.userRepo.find();
+  }
+
+  async findByUsername(username: string) {
+    return await this.userRepo.findOne({"username": username})
   }
 
   async findOne(id: number) {
