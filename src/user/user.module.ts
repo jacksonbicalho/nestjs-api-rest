@@ -5,9 +5,14 @@ import { UserService } from './user.service';
 import { UserController } from './user.controller';
 
 @Module({
-  imports: [forwardRef(() => UserModule), TypeOrmModule.forFeature([User])],
+  imports: [
+    User,
+    // forwardRef(() => UserModule),
+    TypeOrmModule.forFeature([User])
+  ],
+  // imports: [TypeOrmModule.forFeature([User])],
   providers: [UserService],
-  exports: [UserService],
+  exports: [UserService, User],
   controllers: [UserController]
 })
 export class UserModule {}

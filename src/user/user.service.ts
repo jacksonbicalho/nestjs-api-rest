@@ -2,8 +2,8 @@ import { Injectable, Type } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { User }  from './user.entity';
-import { UserDto } from './user.dto';
-import { default as Valida } from '../validation/valida';
+import { CreateUserDto } from './user.dto';
+import { default as Valid } from '../decorator/valida'
 
 @Injectable()
 export class UserService {
@@ -14,12 +14,9 @@ export class UserService {
 
   ) {}
 
-  async create(createUserDto: UserDto): Promise<User|any> {
-
-    const valid = new Valida(createUserDto, UserDto);
-
-    return await this.userRepo.save(createUserDto)
-     .catch(() => valid.getErrors() );
+  @Valid(CreateUserDto)
+  async create(createUserDto: CreateUserDto): Promise<User|any> {
+    return await this.userRepo.save(createUserDto);
   }
 
   async findAll(): Promise<User[]> {
@@ -30,7 +27,7 @@ export class UserService {
     return this.userRepo.findOne({ id });
   }
 
-  async update(id: number, updateUserDto: UserDto) {
+  async update(id: number, updateUserDto: CreateUserDto) {
     await this.userRepo.update(id, updateUserDto);
     return this.findOne( id );
   }

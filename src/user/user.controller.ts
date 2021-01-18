@@ -1,11 +1,7 @@
 import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
-import { UserDto } from './user.dto';
+import { CreateUserDto } from './user.dto';
 
-@ApiResponse({ status: 201, description: 'The record has been successfully created.'})
-@ApiResponse({ status: 403, description: 'Forbidden.'})
-@ApiTags('user')
 @Controller('user')
 export class UserController {
 
@@ -15,7 +11,7 @@ export class UserController {
 
 
   @Post()
-  create(@Body() createUserDto: UserDto) {
+  create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
@@ -30,7 +26,7 @@ export class UserController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UserDto) {
+  update(@Param('id') id: string, @Body() updateUserDto: CreateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
 
