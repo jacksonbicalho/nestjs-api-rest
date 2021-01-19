@@ -11,8 +11,11 @@ export class User extends BaseEntity {
   @Column({ length: 255, unique: true })
   email: string;
 
-  @Column({ length: 128, nullable: false })
+  @Column({ length: 128, nullable: false, select: false })
   password: string;
+
+  @Column({ length: 255, nullable: false, select: false })
+  salt: string;
 
   @CreateDateColumn({name: 'created_at'})
   created_at: Date;

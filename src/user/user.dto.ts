@@ -2,7 +2,7 @@ import {
   IsEmail,
   IsNotEmpty,
   MaxLength,
-  MinLength,
+  MinLength
 } from "class-validator";
 import { Unique } from "../decorators"
 
@@ -21,4 +21,6 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   password: string;
+
+  salt: string;
 }
