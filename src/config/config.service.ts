@@ -11,7 +11,6 @@ class ConfigService {
     if (!value && throwOnMissing) {
       throw new Error(`config error - missing env.${key}`);
     }
-
     return value;
   }
 
@@ -19,7 +18,6 @@ class ConfigService {
     keys.forEach(k => this.getValue(k, true));
     return this;
   }
-
 
   public getTypeOrmConfig(): TypeOrmModuleOptions {
     return {
@@ -43,7 +41,10 @@ const configService = new ConfigService(process.env)
     'TYPEORM_PORT',
     'TYPEORM_USERNAME',
     'TYPEORM_PASSWORD',
-    'TYPEORM_DATABASE'
+    'TYPEORM_DATABASE',
+
+    'ENCRYPTION_KEY'
+
   ]);
 
 export { configService };

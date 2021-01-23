@@ -2,14 +2,15 @@ import { Injectable, UseGuards } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { User }  from './user.entity';
-import { CreateUserDto } from './user.dto';
+import { CreateUserDto } from './users.dto';
 import { Valid, FindOneParams } from '../decorators'
 import { createCipheriv, createDecipheriv, randomBytes } from 'crypto';
 
 @Injectable()
-export class UserService {
+export class UsersService {
 
   private ENCRYPTION_KEY = process.env.ENCRYPTION_KEY; // Must be 256 bits (32 characters)
+
   private IV_LENGTH = 16; // For AES, this is always 16
 
   public constructor(
@@ -53,6 +54,9 @@ export class UserService {
 
   private algorithm = 'aes-256-cbc';
   encrypt(text: string){
+
+    console.log(this.ENCRYPTION_KEY)
+
     let iv = randomBytes(this.IV_LENGTH);
     let cipher = createCipheriv(this.algorithm, Buffer.from(this.ENCRYPTION_KEY), iv);
     let encrypted = cipher.update(text);
