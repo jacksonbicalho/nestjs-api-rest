@@ -1,6 +1,7 @@
 import {
   IsEmail,
   IsNotEmpty,
+  IsNumberString,
   MaxLength,
   MinLength
 } from "class-validator";
@@ -23,4 +24,9 @@ export class CreateUserDto {
   password: string;
 
   salt: string;
+}
+
+export class FindOneParamsDTO {
+  @IsNumberString()
+  id: number;
 }
