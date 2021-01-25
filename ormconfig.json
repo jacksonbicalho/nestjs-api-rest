@@ -1,0 +1,16 @@
+{
+  "name": "default",
+  "type": "postgres",
+  "host": "10.8.8.4",
+  "port": 5432,
+  "username": "dev",
+  "password": "dev",
+  "database": "rest-post",
+  "entities": ["src/**/*.entity{.ts,.js}"],
+  "migrations": ["src/db/migrations/*.ts"],
+  "autoSchemaSync": false,
+  "cli": {
+    "entitiesDir": ["src/**/*.entity{.ts,.js}"],
+    "migrationsDir": ["src/db/migrations"]
+}
+}
